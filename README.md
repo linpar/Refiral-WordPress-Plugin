@@ -1,18 +1,5 @@
 Refiral WordPress Plugin
 ========================
-Contributors: refiral
-
-Tags: referral, marketing
-
-Requires at least: 3.0
-
-Tested up to: 3.8
-
-Stable tag: 4.3
-
-License: GPLv2
-
-License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
 Launch your referral campaign virally. Boost your sales upto 3X with our new hybrid marketing channel. Run your personalized, easy to integrate fully automated referral program.
 
