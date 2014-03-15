@@ -10,15 +10,9 @@ License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Launch your referral campaign virally. Boost your sales upto 3X with our new hybrid marketing channel. Run your personalized, easy to integrate fully automated referral program.
 
 == Description ==
-
 Launch your referral campaign virally. Boost your sales upto 3X with our new hybrid marketing channel. Run your personalized, easy to integrate fully automated referral program.
 
 == Installation ==
-
-This section describes how to install the plugin and get it working.
-
-e.g.
-
 1. Upload `refiral` directory to the `/wp-content/plugins/` directory
 2. Activate the plugin through the 'Plugins' menu in WordPress
 OR
