@@ -78,12 +78,12 @@ if(!class_exists('Refiral')) {
             // Start Session
             session_start();
             $this->get_refiral_options();
-            if($this->options['refiral_enable'] == 'on')
+            if($this->options['refiral_enable'] == 'on' && $this->options['refiral_key'] != '')
             {
+            	$flag = false;
                 // Script Javascript Code
                 echo '<script>';
-                echo 'var apiKey="'.$this->options['refiral_key'].'";</script>';
-                echo '<script src="http://refiral.com/api/woocommerce.js"></script>';
+                echo 'var apiKey="'.$this->options['refiral_key'].'";';
 
                 // If order processed
                 if(isset($_SESSION['refiral_invoice']) && $_SESSION['refiral_invoice'] != -1)
@@ -100,19 +100,30 @@ if(!class_exists('Refiral')) {
                         $order_total = $order->get_total( );
                         $order_subtotal = $order->get_subtotal_to_display();
                         $order_subtotal = preg_replace("/[^0-9.]/", "", $order_subtotal);
-                        $order_subtotal = round(preg_replace('{^\.}', '', $order_subtotal, 1));
+                        $order_subtotal = preg_replace('{^\.}', '', $order_subtotal, 1);
                         $order_coupons = $order->get_used_coupons( );
                         $order_coupon = $order_coupons[0];
                         $order_items = ($order->get_items());
                         foreach ($order_items as $order_item) {
-                            $cartInfo =  $order_item['name']. ' ' .$order_item['product_id']. ', ';
+                            $cartInfoArray[] =  array("id" => $order_item['product_id'], "name" => $order_item['name'], "quantity" => $order_item['qty']);
                         }
+                        $cartInfo = json_encode($cartInfoArray);
                         $order_email = $order->billing_email;
                         $order_name = $order->billing_first_name.' '.$order->billing_last_name;
-                        echo "<script>";
-                        echo "invoiceRefiral('$order_total', '$order_subtotal', '$order_coupon', '$cartInfo', '$order_name', '$order_email');";
-                        echo "</script>";
+                        $flag = true;
                     }
+                }
+                if($flag)
+                	echo 'var showButton = false;';
+                else
+                	echo 'var showButton = true;';
+                echo '</script>';
+                echo '<script src="http://refiral.com/api/all.js"></script>';
+                if($flag)
+                {
+	                echo "<script>";
+	                echo "invoiceRefiral('$order_subtotal', '$order_total', '$order_coupon', '$cartInfo', '$order_name', '$order_email');";
+	                echo "</script>";
                 }
             }
         }
